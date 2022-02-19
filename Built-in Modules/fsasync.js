@@ -23,7 +23,7 @@ readFile('./content/first.txt', 'utf8', (err, result) => {
         
         const second = result;
      
-        writeFile('./content/result-sync.txt', `First: ${first} \nSecond: ${second}`, (err, result) => {
+        writeFile('./content/result-async.txt', `First: ${first} \nSecond: ${second}`, (err, result) => {
             if (err) {
         
                 console.error(`ERROR: ${err}`);
