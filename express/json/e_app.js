@@ -1,4 +1,5 @@
 const express = require('express')
+const {readFileSync} = require('fs')
 
 const PORT = 5000
 
@@ -238,9 +239,20 @@ const examplejson = [
 
     })
 
-  app.get('/api/friends/:friendID', (req, res) => {
+  app.get('/api/v1/friends/:friendID', (req, res) => {
       let response = examplejson[0].friends[req.params.friendID]
-      res.status(200).send(response)
+      if (response === undefined) {
+        
+        return res.status(404).send(readFileSync('../error404.html'))
+      }
+      res.status(200).json(response)
+  })
+
+  app.get('/api/v1/query', (req, res) => {
+      console.log(req.query)
+      const {name, age} = req.query
+      res.status(200).send(`<h1>Hi your name is ${name} and you are ${age} y/o </h1>`)
+       
   })
   
 app.listen(PORT, () => { 
